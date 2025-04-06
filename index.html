@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Logistics Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="control-panel">
+
+    <div class="w-full max-w-xs p-5 bg-white rounded-lg font-mono">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="unique-input">Enter Points</label>
+     <div class="points">
+        <input
+        class="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
+        placeholder="Starting Point"
+        type="text"
+        id="address1"
+        id="unique-input"/>
+        <input
+        class="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
+        placeholder="Destination Point"
+        type="text"
+        id="address2"
+        id="unique-input"/>
+     </div>
+    </div>
+
+    <div class="btn-menu">
+      <button onclick="searchAddress(1)">Find 1st</button>
+      <button onclick="searchAddress(2)">Find 2nd</button>
+      <button onclick="openSettings()">Settings</button>
+      <button onclick="clearRoute()">Clear</button>
+    </div>
+  </div>
+
+  <div class="info-box" id="infoBox">Select points or enter addresses</div>
+  <div id="map"></div>
+
+  <!-- Modal Window -->
+
+  
+  <div class="modal fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50" id="settingsModal">
+    <div class="modal-content bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+      <h3 class="text-lg font-medium text-gray-900 mb-4 text-center">Cost Settings</h3>
+  
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700" for="fuelRate">Fuel consumption (L/100km):</label>
+        <input type="number" id="fuelRate" value="30"
+               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
+                      placeholder-gray-400 focus:outline-none focus:ring-indigo-500 
+                      focus:border-indigo-500 sm:text-sm">
+      </div>
+  
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700" for="fuelPrice">Fuel price (€/L):</label>
+        <input type="number" id="fuelPrice" value="1.6"
+               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
+                      placeholder-gray-400 focus:outline-none focus:ring-indigo-500 
+                      focus:border-indigo-500 sm:text-sm">
+      </div>
+  
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700" for="adBlueRate">AdBlue consumption (L/1000km):</label>
+        <input type="number" id="adBlueRate" value="5"
+               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
+                      placeholder-gray-400 focus:outline-none focus:ring-indigo-500 
+                      focus:border-indigo-500 sm:text-sm">
+      </div>
+  
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700" for="adBluePrice">AdBlue price (€/L):</label>
+        <input type="number" id="adBluePrice" value="0.9"
+               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
+                      placeholder-gray-400 focus:outline-none focus:ring-indigo-500 
+                      focus:border-indigo-500 sm:text-sm">
+      </div>
+  
+      <div class="flex justify-between">
+        <button onclick="saveSettings()" 
+                class="w-full mr-2 px-4 py-2 bg-indigo-600 text-white text-sm font-medium 
+                       rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 
+                       focus:ring-indigo-500 focus:ring-offset-2">
+          Save
+        </button>
+        <button onclick="closeSettings()" 
+                class="w-full ml-2 px-4 py-2 bg-gray-300 text-gray-800 text-sm font-medium 
+                       rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 
+                       focus:ring-gray-400 focus:ring-offset-2">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
